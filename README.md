@@ -31,8 +31,8 @@ syntax = "proto3";
 
 message Request {
   oneof kind {
-	string name = 1;
-	int32  code = 2;
+    string name = 1;
+    int32  code = 2;
   }
 }
 ```
