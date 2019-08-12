@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package e2e;
+
+// Basic just tests basic fields, including oneofs and so on that don't
+// generally work automatically with encoding/json.
+message Basic {
+  string a = 1;
+}
