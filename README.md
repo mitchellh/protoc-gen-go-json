@@ -62,3 +62,23 @@ bs, err := json.Marshal(&Request{
 var result Request
 json.Unmarshal(bs, &result)
 ```
+
+### Options
+
+The generator supports options you can specify via the command-line:
+
+  * `enums_as_ints` - Render enums as integers instead of strings.
+  * `emit_defaults` - Render fields with zero values.
+  * `orig_name` - Use original (.proto file) name for fields.
+
+These can be set as part of the `--go-json_out` value:
+
+```
+protoc --go-json_out=emit_defaults:.
+```
+
+You can specify multiple using a `,`:
+
+```
+protoc --go-json_out=enums_as_ints,emit_defaults:.
+```
