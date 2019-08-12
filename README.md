@@ -11,6 +11,17 @@ other structs and encoded with the standard JSON library, since the standard
 `encoding/json` library can't encode certain protobuf messages such as
 those that contain `oneof` fields.
 
+## Install
+
+```
+go get github.com/mitchellh/protoc-gen-go-json
+```
+
+Also required:
+
+- [protoc](https://github.com/google/protobuf)
+- [protoc-gen-go](https://github.com/golang/protobuf)
+
 ## Usage
 
 Define your messages like normal:
