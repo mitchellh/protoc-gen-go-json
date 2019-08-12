@@ -74,5 +74,10 @@ func (msg *{{.TypeName}}) MarshalJSON() ([]byte,error) {
 	err := m.Marshal(&buf, msg)
 	return buf.Bytes(), err
 }
+
+// UnmarshalJSON implements json.Unmarshaler
+func (msg *{{.TypeName}}) UnmarshalJSON(b []byte) error {
+	return jsonpb.Unmarshal(bytes.NewReader(b), msg)
+}
 `))
 )
