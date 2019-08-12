@@ -7,4 +7,47 @@ and [json.Unmarshaler](https://golang.org/pkg/encoding/json/#Unmarshaler)
 using [jsonpb](https://godoc.org/github.com/golang/protobuf/jsonpb).
 
 This enables Go-generated protobuf messages to be embedded directly within
-other structs and encoded with the standard JSON library.
+other structs and encoded with the standard JSON library, since the standard
+`encoding/json` library can't encode certain protobuf messages such as
+those that contain `oneof` fields.
+
+## Usage
+
+Define your messages like normal:
+
+```proto
+syntax = "proto3";
+
+message Request {
+  oneof kind {
+	string name = 1;
+	int32  code = 2;
+  }
+}
+```
+
+The example message purposely uses a `oneof` since this won't work by
+default with `encoding/json`. Next, generate the code:
+
+```
+protoc --go_out=. --go-json_out=. request.proto
+```
+
+Your output should contain a file `request.pb.json.go` which contains
+the implementation of `json.Marshal/Unmarshal` for all your message types.
+You can then encode your messages using standard `encoding/json`:
+
+```go
+import "encoding/json"
+
+// Marshal
+bs, err := json.Marshal(&Request{
+  Kind: &Kind_Name{
+    Name: "alice",
+  },
+}
+
+// Unmarshal
+var result Request
+json.Unmarshal(bs, &result)
+```
