@@ -21,3 +21,29 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 func (msg *Basic) UnmarshalJSON(b []byte) error {
 	return jsonpb.Unmarshal(bytes.NewReader(b), msg)
 }
+
+// MarshalJSON implements json.Marshaler
+func (msg *Nested) MarshalJSON() ([]byte, error) {
+	var m jsonpb.Marshaler
+	var buf bytes.Buffer
+	err := m.Marshal(&buf, msg)
+	return buf.Bytes(), err
+}
+
+// UnmarshalJSON implements json.Unmarshaler
+func (msg *Nested) UnmarshalJSON(b []byte) error {
+	return jsonpb.Unmarshal(bytes.NewReader(b), msg)
+}
+
+// MarshalJSON implements json.Marshaler
+func (msg *Nested_Message) MarshalJSON() ([]byte, error) {
+	var m jsonpb.Marshaler
+	var buf bytes.Buffer
+	err := m.Marshal(&buf, msg)
+	return buf.Bytes(), err
+}
+
+// UnmarshalJSON implements json.Unmarshaler
+func (msg *Nested_Message) UnmarshalJSON(b []byte) error {
+	return jsonpb.Unmarshal(bytes.NewReader(b), msg)
+}

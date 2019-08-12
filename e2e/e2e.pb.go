@@ -35,7 +35,7 @@ func (m *Basic) Reset()         { *m = Basic{} }
 func (m *Basic) String() string { return proto.CompactTextString(m) }
 func (*Basic) ProtoMessage()    {}
 func (*Basic) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e2e_32ede2160db31332, []int{0}
+	return fileDescriptor_e2e_963258fc77468891, []int{0}
 }
 func (m *Basic) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Basic.Unmarshal(m, b)
@@ -164,19 +164,93 @@ func _Basic_OneofSizer(msg proto.Message) (n int) {
 	return n
 }
 
-func init() {
-	proto.RegisterType((*Basic)(nil), "e2e.Basic")
+// Test nested types
+type Nested struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func init() { proto.RegisterFile("e2e.proto", fileDescriptor_e2e_32ede2160db31332) }
+func (m *Nested) Reset()         { *m = Nested{} }
+func (m *Nested) String() string { return proto.CompactTextString(m) }
+func (*Nested) ProtoMessage()    {}
+func (*Nested) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e2e_963258fc77468891, []int{1}
+}
+func (m *Nested) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Nested.Unmarshal(m, b)
+}
+func (m *Nested) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Nested.Marshal(b, m, deterministic)
+}
+func (dst *Nested) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Nested.Merge(dst, src)
+}
+func (m *Nested) XXX_Size() int {
+	return xxx_messageInfo_Nested.Size(m)
+}
+func (m *Nested) XXX_DiscardUnknown() {
+	xxx_messageInfo_Nested.DiscardUnknown(m)
+}
 
-var fileDescriptor_e2e_32ede2160db31332 = []byte{
-	// 105 bytes of a gzipped FileDescriptorProto
+var xxx_messageInfo_Nested proto.InternalMessageInfo
+
+type Nested_Message struct {
+	Basic                *Basic   `protobuf:"bytes,1,opt,name=basic,proto3" json:"basic,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Nested_Message) Reset()         { *m = Nested_Message{} }
+func (m *Nested_Message) String() string { return proto.CompactTextString(m) }
+func (*Nested_Message) ProtoMessage()    {}
+func (*Nested_Message) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e2e_963258fc77468891, []int{1, 0}
+}
+func (m *Nested_Message) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Nested_Message.Unmarshal(m, b)
+}
+func (m *Nested_Message) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Nested_Message.Marshal(b, m, deterministic)
+}
+func (dst *Nested_Message) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Nested_Message.Merge(dst, src)
+}
+func (m *Nested_Message) XXX_Size() int {
+	return xxx_messageInfo_Nested_Message.Size(m)
+}
+func (m *Nested_Message) XXX_DiscardUnknown() {
+	xxx_messageInfo_Nested_Message.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Nested_Message proto.InternalMessageInfo
+
+func (m *Nested_Message) GetBasic() *Basic {
+	if m != nil {
+		return m.Basic
+	}
+	return nil
+}
+
+func init() {
+	proto.RegisterType((*Basic)(nil), "e2e.Basic")
+	proto.RegisterType((*Nested)(nil), "e2e.Nested")
+	proto.RegisterType((*Nested_Message)(nil), "e2e.Nested.Message")
+}
+
+func init() { proto.RegisterFile("e2e.proto", fileDescriptor_e2e_963258fc77468891) }
+
+var fileDescriptor_e2e_963258fc77468891 = []byte{
+	// 146 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4c, 0x35, 0x4a, 0xd5,
 	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x4e, 0x35, 0x4a, 0x55, 0x72, 0xe2, 0x62, 0x75, 0x4a,
 	0x2c, 0xce, 0x4c, 0x16, 0xe2, 0xe1, 0x62, 0x4c, 0x94, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x62,
 	0x4c, 0x14, 0x12, 0xe2, 0x62, 0xce, 0xcc, 0x2b, 0x91, 0x60, 0x52, 0x60, 0xd4, 0x60, 0xf5, 0x60,
 	0x08, 0x02, 0x71, 0x40, 0x62, 0xc5, 0x25, 0x45, 0x12, 0xcc, 0x20, 0x35, 0x20, 0xb1, 0xe2, 0x92,
-	0x22, 0x27, 0x66, 0x2e, 0xc6, 0xa4, 0x24, 0x36, 0xb0, 0x79, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff,
-	0xff, 0x40, 0xdc, 0xaa, 0x5c, 0x5c, 0x00, 0x00, 0x00,
+	0x22, 0x27, 0x66, 0x2e, 0xc6, 0x24, 0x25, 0x53, 0x2e, 0x36, 0xbf, 0xd4, 0xe2, 0x92, 0xd4, 0x14,
+	0x29, 0x6d, 0x2e, 0x76, 0xdf, 0xd4, 0xe2, 0xe2, 0xc4, 0xf4, 0x54, 0x21, 0x05, 0x2e, 0xd6, 0x24,
+	0x90, 0xc1, 0x60, 0x33, 0xb9, 0x8d, 0xb8, 0xf4, 0x40, 0x16, 0x83, 0xad, 0x0a, 0x82, 0x48, 0x24,
+	0xb1, 0x81, 0x9d, 0x61, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x88, 0x25, 0x51, 0x0b, 0x93, 0x00,
+	0x00, 0x00,
 }

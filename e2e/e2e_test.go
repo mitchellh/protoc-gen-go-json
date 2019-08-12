@@ -41,6 +41,19 @@ func TestTable(t *testing.T) {
 			},
 			nil,
 		},
+
+		{
+			"nested",
+			&Nested_Message{
+				Basic: &Basic{
+					A: "hello",
+					B: &Basic_Int{
+						Int: 42,
+					},
+				},
+			},
+			nil,
+		},
 	}
 
 	for _, tt := range cases {

@@ -12,3 +12,10 @@ message Basic {
     string str = 3;
   }
 }
+
+// Test nested types
+message Nested {
+  message Message {
+    Basic basic = 1;
+  }
+}
