@@ -18,6 +18,9 @@ import (
 var (
 	importPrefix = flag.String("import_prefix", "", "prefix to be added to go package paths for imported proto files")
 	file         = flag.String("file", "-", "where to load data from")
+	enumsAsInts  = flag.Bool("enums_as_ints", false, "render enums as integers as opposed to strings")
+	emitDefaults = flag.Bool("emit_defaults", false, "render fields with zero values")
+	origName     = flag.Bool("orig_name", false, "use original (.proto) name for fields")
 	versionFlag  = flag.Bool("version", false, "print the current verison")
 )
 
@@ -48,11 +51,13 @@ func main() {
 			glog.Fatal(err)
 		}
 	}
+
 	glog.V(1).Info("Parsing code generator request")
 	req, err := codegenerator.ParseRequest(f)
 	if err != nil {
 		glog.Fatal(err)
 	}
+
 	glog.V(1).Info("Parsed code generator request")
 	pkgMap := make(map[string]string)
 	if req.Parameter != nil {
@@ -67,7 +72,11 @@ func main() {
 		reg.AddPkgMap(k, v)
 	}
 
-	g := gen.New(reg)
+	g := gen.New(reg, gen.Options{
+		EnumsAsInts:  *enumsAsInts,
+		EmitDefaults: *emitDefaults,
+		OrigName:     *origName,
+	})
 	if err := reg.Load(req); err != nil {
 		emitError(err)
 		return
@@ -120,28 +129,21 @@ func parseReqParam(param string, f *flag.FlagSet, pkgMap map[string]string) erro
 	for _, p := range strings.Split(param, ",") {
 		spec := strings.SplitN(p, "=", 2)
 		if len(spec) == 1 {
-			if spec[0] == "allow_delete_body" {
+			if spec[0] == "enums_as_ints" {
 				err := f.Set(spec[0], "true")
 				if err != nil {
 					return fmt.Errorf("Cannot set flag %s: %v", p, err)
 				}
 				continue
 			}
-			if spec[0] == "allow_merge" {
+			if spec[0] == "emit_defaults" {
 				err := f.Set(spec[0], "true")
 				if err != nil {
 					return fmt.Errorf("Cannot set flag %s: %v", p, err)
 				}
 				continue
 			}
-			if spec[0] == "allow_repeated_fields_in_body" {
-				err := f.Set(spec[0], "true")
-				if err != nil {
-					return fmt.Errorf("Cannot set flag %s: %v", p, err)
-				}
-				continue
-			}
-			if spec[0] == "include_package_in_tags" {
+			if spec[0] == "orig_name" {
 				err := f.Set(spec[0], "true")
 				if err != nil {
 					return fmt.Errorf("Cannot set flag %s: %v", p, err)

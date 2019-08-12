@@ -10,17 +10,25 @@ import (
 	"github.com/golang/protobuf/proto"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/descriptor"
-	gen "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/generator"
 )
 
 type generator struct {
+	Options
+
 	reg *descriptor.Registry
+}
+
+// Options are the options to set for rendering the template.
+type Options struct {
+	EnumsAsInts  bool
+	EmitDefaults bool
+	OrigName     bool
 }
 
 // New returns a generator which generates Go files that implement
 // json.Marshaler and json.Unmarshaler for the declared message types.
-func New(reg *descriptor.Registry) gen.Generator {
-	return &generator{reg: reg}
+func New(reg *descriptor.Registry, opts Options) *generator {
+	return &generator{reg: reg, Options: opts}
 }
 
 // Generator implements gen.Generator from protoc-gen-grpc-gateway
@@ -54,5 +62,5 @@ func (g *generator) Generate(targets []*descriptor.File) ([]*plugin.CodeGenerato
 }
 
 func (g *generator) generate(file *descriptor.File) (string, error) {
-	return applyTemplate(file)
+	return applyTemplate(file, g.Options)
 }

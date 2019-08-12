@@ -11,7 +11,7 @@ import (
 )
 
 // This function is called with a param which contains the entire definition of a method.
-func applyTemplate(f *descriptor.File) (string, error) {
+func applyTemplate(f *descriptor.File, opts Options) (string, error) {
 	w := bytes.NewBuffer(nil)
 
 	if err := headerTemplate.Execute(w, tplHeader{
@@ -26,6 +26,7 @@ func applyTemplate(f *descriptor.File) (string, error) {
 		msg.Name = &msgName
 		if err := messageTemplate.Execute(w, tplMessage{
 			Message: msg,
+			Options: opts,
 		}); err != nil {
 			return "", err
 		}
@@ -40,6 +41,7 @@ type tplHeader struct {
 
 type tplMessage struct {
 	*descriptor.Message
+	Options
 }
 
 // TypeName returns the name of the type for this message. This logic
@@ -69,9 +71,12 @@ import (
 	messageTemplate = template.Must(template.New("message").Parse(`
 // MarshalJSON implements json.Marshaler
 func (msg *{{.TypeName}}) MarshalJSON() ([]byte,error) {
-	var m jsonpb.Marshaler
 	var buf bytes.Buffer
-	err := m.Marshal(&buf, msg)
+	err := (&jsonpb.Marshaler{
+	  EnumsAsInts: {{.EnumsAsInts}},
+	  EmitDefaults: {{.EmitDefaults}},
+	  OrigName: {{.OrigName}},
+	}).Marshal(&buf, msg)
 	return buf.Bytes(), err
 }
 

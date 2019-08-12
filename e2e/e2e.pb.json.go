@@ -11,9 +11,12 @@ import (
 
 // MarshalJSON implements json.Marshaler
 func (msg *Basic) MarshalJSON() ([]byte, error) {
-	var m jsonpb.Marshaler
 	var buf bytes.Buffer
-	err := m.Marshal(&buf, msg)
+	err := (&jsonpb.Marshaler{
+		EnumsAsInts:  false,
+		EmitDefaults: false,
+		OrigName:     false,
+	}).Marshal(&buf, msg)
 	return buf.Bytes(), err
 }
 
@@ -24,9 +27,12 @@ func (msg *Basic) UnmarshalJSON(b []byte) error {
 
 // MarshalJSON implements json.Marshaler
 func (msg *Nested) MarshalJSON() ([]byte, error) {
-	var m jsonpb.Marshaler
 	var buf bytes.Buffer
-	err := m.Marshal(&buf, msg)
+	err := (&jsonpb.Marshaler{
+		EnumsAsInts:  false,
+		EmitDefaults: false,
+		OrigName:     false,
+	}).Marshal(&buf, msg)
 	return buf.Bytes(), err
 }
 
@@ -37,9 +43,12 @@ func (msg *Nested) UnmarshalJSON(b []byte) error {
 
 // MarshalJSON implements json.Marshaler
 func (msg *Nested_Message) MarshalJSON() ([]byte, error) {
-	var m jsonpb.Marshaler
 	var buf bytes.Buffer
-	err := m.Marshal(&buf, msg)
+	err := (&jsonpb.Marshaler{
+		EnumsAsInts:  false,
+		EmitDefaults: false,
+		OrigName:     false,
+	}).Marshal(&buf, msg)
 	return buf.Bytes(), err
 }
 
