@@ -21,24 +21,11 @@ var (
 	enumsAsInts  = flag.Bool("enums_as_ints", false, "render enums as integers as opposed to strings")
 	emitDefaults = flag.Bool("emit_defaults", false, "render fields with zero values")
 	origName     = flag.Bool("orig_name", false, "use original (.proto) name for fields")
-	versionFlag  = flag.Bool("version", false, "print the current verison")
-)
-
-// Variables set by goreleaser at build time
-var (
-	version = "dev"
-	commit  = "unknown"
-	date    = "unknown"
 )
 
 func main() {
 	flag.Parse()
 	defer glog.Flush()
-
-	if *versionFlag {
-		fmt.Printf("Version %v, commit %v, built at %v\n", version, commit, date)
-		os.Exit(0)
-	}
 
 	reg := descriptor.NewRegistry()
 
