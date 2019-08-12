@@ -21,17 +21,21 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 // Basic just tests basic fields, including oneofs and so on that don't
 // generally work automatically with encoding/json.
 type Basic struct {
-	A                    string   `protobuf:"bytes,1,opt,name=a,proto3" json:"a,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	A string `protobuf:"bytes,1,opt,name=a,proto3" json:"a,omitempty"`
+	// Types that are valid to be assigned to B:
+	//	*Basic_Int
+	//	*Basic_Str
+	B                    isBasic_B `protobuf_oneof:"b"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
 func (m *Basic) Reset()         { *m = Basic{} }
 func (m *Basic) String() string { return proto.CompactTextString(m) }
 func (*Basic) ProtoMessage()    {}
 func (*Basic) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e2e_46d50726174d7782, []int{0}
+	return fileDescriptor_e2e_32ede2160db31332, []int{0}
 }
 func (m *Basic) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Basic.Unmarshal(m, b)
@@ -58,17 +62,121 @@ func (m *Basic) GetA() string {
 	return ""
 }
 
+type isBasic_B interface {
+	isBasic_B()
+}
+
+type Basic_Int struct {
+	Int int32 `protobuf:"varint,2,opt,name=int,proto3,oneof"`
+}
+
+type Basic_Str struct {
+	Str string `protobuf:"bytes,3,opt,name=str,proto3,oneof"`
+}
+
+func (*Basic_Int) isBasic_B() {}
+
+func (*Basic_Str) isBasic_B() {}
+
+func (m *Basic) GetB() isBasic_B {
+	if m != nil {
+		return m.B
+	}
+	return nil
+}
+
+func (m *Basic) GetInt() int32 {
+	if x, ok := m.GetB().(*Basic_Int); ok {
+		return x.Int
+	}
+	return 0
+}
+
+func (m *Basic) GetStr() string {
+	if x, ok := m.GetB().(*Basic_Str); ok {
+		return x.Str
+	}
+	return ""
+}
+
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*Basic) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
+	return _Basic_OneofMarshaler, _Basic_OneofUnmarshaler, _Basic_OneofSizer, []interface{}{
+		(*Basic_Int)(nil),
+		(*Basic_Str)(nil),
+	}
+}
+
+func _Basic_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*Basic)
+	// b
+	switch x := m.B.(type) {
+	case *Basic_Int:
+		b.EncodeVarint(2<<3 | proto.WireVarint)
+		b.EncodeVarint(uint64(x.Int))
+	case *Basic_Str:
+		b.EncodeVarint(3<<3 | proto.WireBytes)
+		b.EncodeStringBytes(x.Str)
+	case nil:
+	default:
+		return fmt.Errorf("Basic.B has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _Basic_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*Basic)
+	switch tag {
+	case 2: // b.int
+		if wire != proto.WireVarint {
+			return true, proto.ErrInternalBadWireType
+		}
+		x, err := b.DecodeVarint()
+		m.B = &Basic_Int{int32(x)}
+		return true, err
+	case 3: // b.str
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		x, err := b.DecodeStringBytes()
+		m.B = &Basic_Str{x}
+		return true, err
+	default:
+		return false, nil
+	}
+}
+
+func _Basic_OneofSizer(msg proto.Message) (n int) {
+	m := msg.(*Basic)
+	// b
+	switch x := m.B.(type) {
+	case *Basic_Int:
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(x.Int))
+	case *Basic_Str:
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(len(x.Str)))
+		n += len(x.Str)
+	case nil:
+	default:
+		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
+	}
+	return n
+}
+
 func init() {
 	proto.RegisterType((*Basic)(nil), "e2e.Basic")
 }
 
-func init() { proto.RegisterFile("e2e.proto", fileDescriptor_e2e_46d50726174d7782) }
+func init() { proto.RegisterFile("e2e.proto", fileDescriptor_e2e_32ede2160db31332) }
 
-var fileDescriptor_e2e_46d50726174d7782 = []byte{
-	// 68 bytes of a gzipped FileDescriptorProto
+var fileDescriptor_e2e_32ede2160db31332 = []byte{
+	// 105 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4c, 0x35, 0x4a, 0xd5,
-	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x4e, 0x35, 0x4a, 0x55, 0x12, 0xe5, 0x62, 0x75, 0x4a,
+	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x4e, 0x35, 0x4a, 0x55, 0x72, 0xe2, 0x62, 0x75, 0x4a,
 	0x2c, 0xce, 0x4c, 0x16, 0xe2, 0xe1, 0x62, 0x4c, 0x94, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x62,
-	0x4c, 0x4c, 0x62, 0x03, 0x2b, 0x31, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x9f, 0x50, 0x8d, 0xf1,
-	0x2f, 0x00, 0x00, 0x00,
+	0x4c, 0x14, 0x12, 0xe2, 0x62, 0xce, 0xcc, 0x2b, 0x91, 0x60, 0x52, 0x60, 0xd4, 0x60, 0xf5, 0x60,
+	0x08, 0x02, 0x71, 0x40, 0x62, 0xc5, 0x25, 0x45, 0x12, 0xcc, 0x20, 0x35, 0x20, 0xb1, 0xe2, 0x92,
+	0x22, 0x27, 0x66, 0x2e, 0xc6, 0xa4, 0x24, 0x36, 0xb0, 0x79, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff,
+	0xff, 0x40, 0xdc, 0xaa, 0x5c, 0x5c, 0x00, 0x00, 0x00,
 }

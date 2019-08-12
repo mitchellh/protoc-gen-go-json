@@ -22,6 +22,9 @@ func TestTable(t *testing.T) {
 			"basic",
 			&Basic{
 				A: "hello",
+				B: &Basic_Int{
+					Int: 42,
+				},
 			},
 			nil,
 		},
@@ -31,6 +34,9 @@ func TestTable(t *testing.T) {
 			&basicWrapper{
 				Basic: Basic{
 					A: "hello",
+					B: &Basic_Int{
+						Int: 42,
+					},
 				},
 			},
 			nil,
