@@ -11,7 +11,8 @@ import (
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/grpc-ecosystem/grpc-gateway/codegenerator"
 	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/descriptor"
-	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/genswagger"
+
+	"github.com/mitchellh/protoc-gen-go-json/gen"
 )
 
 var (
@@ -93,13 +94,7 @@ func main() {
 		}
 	}
 
-	g := genswagger.New(reg)
-
-	if err := genswagger.AddStreamError(reg); err != nil {
-		emitError(err)
-		return
-	}
-
+	g := gen.New(reg)
 	if err := reg.Load(req); err != nil {
 		emitError(err)
 		return
