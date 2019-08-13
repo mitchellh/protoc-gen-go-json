@@ -11,6 +11,8 @@ message Basic {
     int32  int = 2;
     string str = 3;
   }
+
+  map<string, string> map = 4;
 }
 
 // Test nested types

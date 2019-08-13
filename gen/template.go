@@ -22,6 +22,10 @@ func applyTemplate(f *descriptor.File, opts Options) (string, error) {
 
 	for _, msg := range f.Messages {
 		glog.V(2).Infof("Processing %s", msg.GetName())
+		if msg.Options != nil && msg.Options.GetMapEntry() {
+			glog.V(2).Infof("Skipping %s, mapentry message", msg.GetName())
+			continue
+		}
 		msgName := gogen.CamelCase(*msg.Name)
 		msg.Name = &msgName
 		if err := messageTemplate.Execute(w, tplMessage{
