@@ -21,6 +21,7 @@ var (
 	enumsAsInts  = flag.Bool("enums_as_ints", false, "render enums as integers as opposed to strings")
 	emitDefaults = flag.Bool("emit_defaults", false, "render fields with zero values")
 	origName     = flag.Bool("orig_name", false, "use original (.proto) name for fields")
+	allowUnknown = flag.Bool("allow_unknown", false, "allow messages to contain unknown fields when unmarshaling")
 )
 
 func main() {
@@ -60,9 +61,10 @@ func main() {
 	}
 
 	g := gen.New(reg, gen.Options{
-		EnumsAsInts:  *enumsAsInts,
-		EmitDefaults: *emitDefaults,
-		OrigName:     *origName,
+		EnumsAsInts:        *enumsAsInts,
+		EmitDefaults:       *emitDefaults,
+		OrigName:           *origName,
+		AllowUnknownFields: *allowUnknown,
 	})
 	if err := reg.Load(req); err != nil {
 		emitError(err)
@@ -131,6 +133,13 @@ func parseReqParam(param string, f *flag.FlagSet, pkgMap map[string]string) erro
 				continue
 			}
 			if spec[0] == "orig_name" {
+				err := f.Set(spec[0], "true")
+				if err != nil {
+					return fmt.Errorf("Cannot set flag %s: %v", p, err)
+				}
+				continue
+			}
+			if spec[0] == "allow_unknown" {
 				err := f.Set(spec[0], "true")
 				if err != nil {
 					return fmt.Errorf("Cannot set flag %s: %v", p, err)
