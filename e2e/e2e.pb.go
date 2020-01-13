@@ -3,9 +3,11 @@
 
 package e2e
 
-import proto "github.com/golang/protobuf/proto"
-import fmt "fmt"
-import math "math"
+import (
+	fmt "fmt"
+	proto "github.com/golang/protobuf/proto"
+	math "math"
+)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -16,7 +18,7 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 // Basic just tests basic fields, including oneofs and so on that don't
 // generally work automatically with encoding/json.
@@ -36,16 +38,17 @@ func (m *Basic) Reset()         { *m = Basic{} }
 func (m *Basic) String() string { return proto.CompactTextString(m) }
 func (*Basic) ProtoMessage()    {}
 func (*Basic) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e2e_1571a997fc29c059, []int{0}
+	return fileDescriptor_4dd97aca76fff0f4, []int{0}
 }
+
 func (m *Basic) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Basic.Unmarshal(m, b)
 }
 func (m *Basic) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Basic.Marshal(b, m, deterministic)
 }
-func (dst *Basic) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Basic.Merge(dst, src)
+func (m *Basic) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Basic.Merge(m, src)
 }
 func (m *Basic) XXX_Size() int {
 	return xxx_messageInfo_Basic.Size(m)
@@ -107,69 +110,12 @@ func (m *Basic) GetMap() map[string]string {
 	return nil
 }
 
-// XXX_OneofFuncs is for the internal use of the proto package.
-func (*Basic) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
-	return _Basic_OneofMarshaler, _Basic_OneofUnmarshaler, _Basic_OneofSizer, []interface{}{
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*Basic) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
 		(*Basic_Int)(nil),
 		(*Basic_Str)(nil),
 	}
-}
-
-func _Basic_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
-	m := msg.(*Basic)
-	// b
-	switch x := m.B.(type) {
-	case *Basic_Int:
-		b.EncodeVarint(2<<3 | proto.WireVarint)
-		b.EncodeVarint(uint64(x.Int))
-	case *Basic_Str:
-		b.EncodeVarint(3<<3 | proto.WireBytes)
-		b.EncodeStringBytes(x.Str)
-	case nil:
-	default:
-		return fmt.Errorf("Basic.B has unexpected type %T", x)
-	}
-	return nil
-}
-
-func _Basic_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
-	m := msg.(*Basic)
-	switch tag {
-	case 2: // b.int
-		if wire != proto.WireVarint {
-			return true, proto.ErrInternalBadWireType
-		}
-		x, err := b.DecodeVarint()
-		m.B = &Basic_Int{int32(x)}
-		return true, err
-	case 3: // b.str
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		x, err := b.DecodeStringBytes()
-		m.B = &Basic_Str{x}
-		return true, err
-	default:
-		return false, nil
-	}
-}
-
-func _Basic_OneofSizer(msg proto.Message) (n int) {
-	m := msg.(*Basic)
-	// b
-	switch x := m.B.(type) {
-	case *Basic_Int:
-		n += 1 // tag and wire
-		n += proto.SizeVarint(uint64(x.Int))
-	case *Basic_Str:
-		n += 1 // tag and wire
-		n += proto.SizeVarint(uint64(len(x.Str)))
-		n += len(x.Str)
-	case nil:
-	default:
-		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
-	}
-	return n
 }
 
 // Test nested types
@@ -183,16 +129,17 @@ func (m *Nested) Reset()         { *m = Nested{} }
 func (m *Nested) String() string { return proto.CompactTextString(m) }
 func (*Nested) ProtoMessage()    {}
 func (*Nested) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e2e_1571a997fc29c059, []int{1}
+	return fileDescriptor_4dd97aca76fff0f4, []int{1}
 }
+
 func (m *Nested) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Nested.Unmarshal(m, b)
 }
 func (m *Nested) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Nested.Marshal(b, m, deterministic)
 }
-func (dst *Nested) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Nested.Merge(dst, src)
+func (m *Nested) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Nested.Merge(m, src)
 }
 func (m *Nested) XXX_Size() int {
 	return xxx_messageInfo_Nested.Size(m)
@@ -214,16 +161,17 @@ func (m *Nested_Message) Reset()         { *m = Nested_Message{} }
 func (m *Nested_Message) String() string { return proto.CompactTextString(m) }
 func (*Nested_Message) ProtoMessage()    {}
 func (*Nested_Message) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e2e_1571a997fc29c059, []int{1, 0}
+	return fileDescriptor_4dd97aca76fff0f4, []int{1, 0}
 }
+
 func (m *Nested_Message) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Nested_Message.Unmarshal(m, b)
 }
 func (m *Nested_Message) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Nested_Message.Marshal(b, m, deterministic)
 }
-func (dst *Nested_Message) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Nested_Message.Merge(dst, src)
+func (m *Nested_Message) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Nested_Message.Merge(m, src)
 }
 func (m *Nested_Message) XXX_Size() int {
 	return xxx_messageInfo_Nested_Message.Size(m)
@@ -248,9 +196,9 @@ func init() {
 	proto.RegisterType((*Nested_Message)(nil), "e2e.Nested.Message")
 }
 
-func init() { proto.RegisterFile("e2e.proto", fileDescriptor_e2e_1571a997fc29c059) }
+func init() { proto.RegisterFile("e2e.proto", fileDescriptor_4dd97aca76fff0f4) }
 
-var fileDescriptor_e2e_1571a997fc29c059 = []byte{
+var fileDescriptor_4dd97aca76fff0f4 = []byte{
 	// 210 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x44, 0x8f, 0xc1, 0x4a, 0xc4, 0x30,
 	0x10, 0x86, 0x9d, 0x8d, 0x59, 0xed, 0xac, 0x07, 0x19, 0x3d, 0x84, 0x3d, 0x85, 0x05, 0xa1, 0x20,

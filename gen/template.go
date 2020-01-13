@@ -86,7 +86,9 @@ func (msg *{{.TypeName}}) MarshalJSON() ([]byte,error) {
 
 // UnmarshalJSON implements json.Unmarshaler
 func (msg *{{.TypeName}}) UnmarshalJSON(b []byte) error {
-	return jsonpb.Unmarshal(bytes.NewReader(b), msg)
+	return (&jsonpb.Unmarshaler{
+	  AllowUnknownFields: {{.AllowUnknownFields}},
+	}).Unmarshal(bytes.NewReader(b), msg)
 }
 `))
 )

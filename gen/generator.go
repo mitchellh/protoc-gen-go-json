@@ -20,9 +20,10 @@ type generator struct {
 
 // Options are the options to set for rendering the template.
 type Options struct {
-	EnumsAsInts  bool
-	EmitDefaults bool
-	OrigName     bool
+	EnumsAsInts        bool
+	EmitDefaults       bool
+	OrigName           bool
+	AllowUnknownFields bool
 }
 
 // New returns a generator which generates Go files that implement
