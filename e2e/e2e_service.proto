@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package e2e;
+
+import "e2e.proto";
+
+service E2E {
+  rpc Hello(Basic) returns (Basic) {}
+}
