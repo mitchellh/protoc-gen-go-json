@@ -34,7 +34,7 @@ in with pkgs; let
     subPackages = [ "protoc-gen-go" ];
   };
 in pkgs.mkShell rec {
-  name = "waypoint";
+  name = "protoc-gen-go-json";
 
   # The packages in the `buildInputs` list will be added to the PATH in our shell
   buildInputs = [
