@@ -67,19 +67,31 @@ json.Unmarshal(bs, &result)
 
 The generator supports options you can specify via the command-line:
 
-  * `enums_as_ints` - Render enums as integers instead of strings.
-  * `emit_defaults` - Render fields with zero values.
-  * `orig_name` - Use original (.proto file) name for fields.
-  * `allow_unknown` - Allow messages to contain unknown fields when unmarshaling
+- `enums_as_ints={bool}` - Render enums as integers instead of strings.
+- `emit_defaults={bool}` - Render fields with zero values.
+- `orig_name={bool}` - Use original (.proto file) name for fields.
+- `allow_unknown={bool}` - Allow messages to contain unknown fields when unmarshaling
+
+It also includes the "standard" options available to all [protogen](https://pkg.go.dev/google.golang.org/protobuf/compiler/protogen?tab=doc)-based plugins:
+
+- `import_path={path}` - Override the import path
+- `paths=source_relative` - Derive the output path from the input path
+- etc.
 
 These can be set as part of the `--go-json_out` value:
 
-```
-protoc --go-json_out=emit_defaults:.
+```sh
+protoc --go-json_opt=emit_defaults=true:.
 ```
 
 You can specify multiple using a `,`:
 
+```sh
+protoc --go-json_out=enums_as_ints=true,emit_defaults=true:.
 ```
-protoc --go-json_out=enums_as_ints,emit_defaults:.
+
+Alternatively, you may also specify options using the `--go-json_opt` value:
+
+```sh
+protoc --go-json_out:. --go-json_opt=emit_defaults=true,enums_as_ints=true
 ```
