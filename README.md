@@ -75,11 +75,11 @@ The generator supports options you can specify via the command-line:
 These can be set as part of the `--go-json_out` value:
 
 ```
-protoc --go-json_out=emit_defaults:.
+protoc --go-json_out=emit_defaults=true:.
 ```
 
 You can specify multiple using a `,`:
 
 ```
-protoc --go-json_out=enums_as_ints,emit_defaults:.
+protoc --go-json_out=enums_as_ints=true,emit_defaults=true:.
 ```
