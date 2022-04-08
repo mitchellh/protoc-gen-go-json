@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package e2e;
 
-option go_package = ".;e2e";
+option go_package = "./e2e;e2e";
 
 import "e2e.proto";
 
