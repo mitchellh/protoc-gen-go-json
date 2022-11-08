@@ -10,6 +10,8 @@ import (
 
 // Options are the options to set for rendering the template.
 type Options struct {
+	Partial            bool
+	Multiline          bool
 	EnumsAsInts        bool
 	EmitDefaults       bool
 	OrigName           bool
@@ -81,6 +83,11 @@ func (msg *{{.GoIdent.GoName}}) MarshalJSON() ([]byte,error) {
 		UseEnumNumbers: {{.EnumsAsInts}},
 		EmitUnpopulated: {{.EmitDefaults}},
 		UseProtoNames: {{.OrigName}},
+		AllowPartial: {{.Partial}},
+		{{- if .Multiline}}
+		Multiline: true,
+		Indent: "\t",
+		{{- end}}
 	}.Marshal(msg)
 }
 

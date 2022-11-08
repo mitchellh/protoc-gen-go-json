@@ -1,5 +1,7 @@
 # protoc-gen-go-json
 
+forked from mitchellh/protoc-gen-go-json
+
 This is a plugin for the Google Protocol Buffers compiler
 [protoc](https://github.com/protocolbuffers/protobuf) that generates
 code to implement [json.Marshaler](https://golang.org/pkg/encoding/json/#Marshaler)
@@ -14,7 +16,7 @@ those that contain `oneof` fields.
 ## Install
 
 ```
-go get github.com/mitchellh/protoc-gen-go-json
+go get github.com/dissoupov/protoc-gen-go-json
 ```
 
 Also required:
@@ -67,6 +69,8 @@ json.Unmarshal(bs, &result)
 
 The generator supports options you can specify via the command-line:
 
+- `partial={bool}`       - Allow encoding any missing required fields.
+- `multiline={bool}`     - Render multiline with indent.
 - `enums_as_ints={bool}` - Render enums as integers instead of strings.
 - `emit_defaults={bool}` - Render fields with zero values.
 - `orig_name={bool}` - Use original (.proto file) name for fields.

@@ -13,6 +13,9 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 		UseEnumNumbers:  false,
 		EmitUnpopulated: false,
 		UseProtoNames:   false,
+		AllowPartial:    true,
+		Multiline:       true,
+		Indent:          "\t",
 	}.Marshal(msg)
 }
 
@@ -29,6 +32,9 @@ func (msg *Nested) MarshalJSON() ([]byte, error) {
 		UseEnumNumbers:  false,
 		EmitUnpopulated: false,
 		UseProtoNames:   false,
+		AllowPartial:    true,
+		Multiline:       true,
+		Indent:          "\t",
 	}.Marshal(msg)
 }
 
@@ -45,6 +51,9 @@ func (msg *Nested_Message) MarshalJSON() ([]byte, error) {
 		UseEnumNumbers:  false,
 		EmitUnpopulated: false,
 		UseProtoNames:   false,
+		AllowPartial:    true,
+		Multiline:       true,
+		Indent:          "\t",
 	}.Marshal(msg)
 }
 
