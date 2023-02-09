@@ -10,6 +10,8 @@ import (
 
 func TestTable(t *testing.T) {
 	type basicWrapper struct{ Basic }
+	var optionalPresent = "present"
+	var optionalEmpty = ""
 	var cases = []struct {
 		Name string
 
@@ -51,6 +53,30 @@ func TestTable(t *testing.T) {
 						Int: 42,
 					},
 				},
+			},
+			nil,
+		},
+
+		{
+			"optional present",
+			&Basic{
+				A: "hello",
+				B: &Basic_Int{
+					Int: 42,
+				},
+				O: &optionalPresent,
+			},
+			nil,
+		},
+
+		{
+			"optional empty",
+			&Basic{
+				A: "hello",
+				B: &Basic_Int{
+					Int: 42,
+				},
+				O: &optionalEmpty,
 			},
 			nil,
 		},

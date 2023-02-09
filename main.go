@@ -7,6 +7,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/mitchellh/protoc-gen-go-json/gen"
 	"google.golang.org/protobuf/compiler/protogen"
+	"google.golang.org/protobuf/types/pluginpb"
 )
 
 var (
@@ -23,7 +24,7 @@ func main() {
 	protogen.Options{
 		ParamFunc: flag.CommandLine.Set,
 	}.Run(func(gp *protogen.Plugin) error {
-
+		gp.SupportedFeatures = uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
 		opts := gen.Options{
 			EnumsAsInts:        *enumsAsInts,
 			EmitDefaults:       *emitDefaults,
